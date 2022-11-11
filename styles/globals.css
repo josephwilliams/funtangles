@@ -33,8 +33,3 @@ a {
 .container {
   border: 1px solid black;
 }
-
-.innerSquare {
-  height: 100%;
-  width: 100%;
-}

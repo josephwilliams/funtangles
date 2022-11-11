@@ -1,59 +1,51 @@
 import { useState, createContext } from 'react'
+import { useColor } from '../utils/hooks'
 
 const RectanglesContext = createContext()
 
 function RectanglesProvider({ children }) {
+  const { color, touchedRectIndex, setTouchedRectIndex } = useColor()
+
   const [rectangles, setRectangles] = useState([
     {
       position: {
-        left: "40%",
-        top: "40%",
+        left: "200px",
+        top: "200px",
         width: "200px",
         height: "200px",
         rotation: "0deg"
       }
     },
-    {
-      position: {
-        left: "60%",
-        top: "60%",
-        width: "50px",
-        height: "50px",
-        rotation: "0deg"
-      },
-      style: {
-        background: 'blue'
-      }
-    }
   ])
 
   const addRectangle = () => {
-    console.log('> add')
     const rects = [ ...rectangles ]
     rects.push({
       position: {
-        left: "40%",
-        top: "40%",
+        left: "100px",
+        top: "100px",
         width: "100px",
         height: "100px",
         rotation: "0deg"
       },
       style: {
-        background: 'blue'
-      }
+        background: color,
+      },
     })
-    console.log('> rects', rects)
     setRectangles(rects)
+    setTouchedRectIndex(rects.length - 1)
   }
 
   const deleteRectangle = index => {
+    const rects = [ ...rectangles ]
+    rects.splice(index, 1)
+    setRectangles(rects)
+    setTouchedRectIndex(null)
   }
 
   const clearRectangles = () => {
     setRectangles([])
   }
-
-  console.log('> rectangles 1', rectangles)
 
   return (
     <RectanglesContext.Provider
