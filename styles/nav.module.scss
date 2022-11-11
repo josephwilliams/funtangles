@@ -1,0 +1,24 @@
+.navWrapper {
+  width: 100%;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  background: white;
+  border-bottom: 1px solid #d4d4d4;
+  box-shadow: 3px 3px 3px #0000001a;
+
+  .navItemsContainer {
+    display: flex;
+    align-items: center;
+  }
+
+  .navItemsContainer:first-child {
+    justify-content: flex-start;
+  }
+
+  .navItemsContainer:last-child {
+    justify-content: flex-end;
+  }
+}
