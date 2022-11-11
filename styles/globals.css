@@ -24,3 +24,17 @@ a {
     background: black;
   }
 }
+
+.target {
+  width: 100vw;
+  height: 100vh;
+}
+
+.container {
+  border: 1px solid black;
+}
+
+.innerSquare {
+  height: 100%;
+  width: 100%;
+}

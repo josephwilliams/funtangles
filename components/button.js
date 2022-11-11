@@ -1,7 +1,7 @@
 import classnames from 'classnames'
 import styles from '../styles/button.module.scss'
 
-const Button = ({ title, onClick, className }) => {
+const Button = ({ title, onClick, className, id }) => {
   return (
     <div
       className={classnames(
@@ -9,6 +9,7 @@ const Button = ({ title, onClick, className }) => {
         className,
       )}
       onClick={onClick}
+      id={id}
     >
       {title}
     </div>

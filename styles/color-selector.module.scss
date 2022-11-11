@@ -1,0 +1,27 @@
+.colorPickerWrapper {
+  position: relative;
+}
+
+.colorPickerHolder {
+  position: absolute;
+  top: 40px;
+  left: 0;
+  z-index: 2;
+}
+
+// NOTE: example CSS overrides (would have to be imported in from App.js)
+.your-component .react-colorful {
+  height: 240px;
+}
+.your-component .react-colorful__saturation {
+  border-radius: 4px 4px 0 0;
+}
+.your-component .react-colorful__hue {
+  height: 40px;
+  border-radius: 0 0 4px 4px;
+}
+.your-component .react-colorful__hue-pointer {
+  width: 12px;
+  height: inherit;
+  border-radius: 0;
+}

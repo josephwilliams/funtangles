@@ -1,118 +1,64 @@
+import { useState, useEffect } from 'react'
 import Moveable from 'react-moveable'
+import { PositionableContainer, Position } from "re-position";
+import { useColor } from '../utils/hooks'
+import { useRectangles } from '../utils/hooks'
+
+const INITIAL_POSITIONS = [
+  null,
+  {
+    left: "40%",
+    top: "40%",
+    width: "200px",
+    height: "200px",
+    rotation: "0deg"
+  },
+]
 
 const ShapeCanvas = () => {
+  const { setTouchedRectIndex } = useColor()
+  const { rectangles } = useRectangles()
+  console.log('> rectangles 2', rectangles)
+
   return (
-    <div>
-      <div className={'target'} />
-        <Moveable
-          target={document.querySelector('.target')}
-          container={null}
-          origin={true}
-
-          /* Resize event edges */
-          edge={false}
-
-          /* draggable */
-          draggable={true}
-          throttleDrag={0}
-          onDragStart={({ target, clientX, clientY }) => {
-              console.log('onDragStart', target)
-          }}
-          onDrag={({
-              target,
-              beforeDelta, beforeDist,
-              left, top,
-              right, bottom,
-              delta, dist,
-              transform,
-              clientX, clientY,
-          }) => {
-              console.log('onDrag left, top', left, top)
-              // target.style.left = `${left}px`
-              // target.style.top = `${top}px`
-              console.log('onDrag translate', dist)
-              target.style.transform = transform
-          }}
-          onDragEnd={({ target, isDrag, clientX, clientY }) => {
-              console.log('onDragEnd', target, isDrag)
-          }}
-
-          /* When resize or scale, keeps a ratio of the width, height. */
-          keepRatio={true}
-
-          /* resizable*/
-          /* Only one of resizable, scalable, warpable can be used. */
-          resizable={true}
-          throttleResize={0}
-          onResizeStart={({ target , clientX, clientY}) => {
-              console.log('onResizeStart', target)
-          }}
-          onResize={({
-              target, width, height,
-              dist, delta, direction,
-              clientX, clientY,
-          }) => {
-              console.log('onResize', target)
-              delta[0] && (target.style.width = `${width}px`)
-              delta[1] && (target.style.height = `${height}px`)
-          }}
-          onResizeEnd={({ target, isDrag, clientX, clientY }) => {
-              console.log('onResizeEnd', target, isDrag)
-          }}
-
-          /* scalable */
-          /* Only one of resizable, scalable, warpable can be used. */
-          scalable={true}
-          throttleScale={0}
-          onScaleStart={({ target, clientX, clientY }) => {
-              console.log('onScaleStart', target)
-          }}
-          onScale={({
-              target, scale, dist, delta, transform,
-              clientX, clientY,
-          }) => {
-              console.log('onScale scale', scale)
-              target.style.transform = transform
-          }}
-          onScaleEnd={({ target, isDrag, clientX, clientY }) => {
-              console.log('onScaleEnd', target, isDrag)
-          }}
-
-          /* rotatable */
-          rotatable={true}
-          throttleRotate={0}
-          onRotateStart={({ target, clientX, clientY }) => {
-              console.log('onRotateStart', target)
-          }}
-          onRotate={({
-              target,
-              delta, dist,
-              transform,
-              clientX, clientY,
-          }) => {
-              console.log('onRotate', dist)
-              target.style.transform = transform
-          }}
-          onRotateEnd={({ target, isDrag, clientX, clientY }) => {
-              console.log('onRotateEnd', target, isDrag)
-          }}
-          // Enabling pinchable lets you use events that
-          // can be used in draggable, resizable, scalable, and rotateable.
-          pinchable={true}
-          onPinchStart={({ target, clientX, clientY, datas }) => {
-              // pinchStart event occur before dragStart, rotateStart, scaleStart, resizeStart
-              console.log('onPinchStart')
-          }}
-          onPinch={({ target, clientX, clientY, datas }) => {
-              // pinch event occur before drag, rotate, scale, resize
-              console.log('onPinch')
-          }}
-          onPinchEnd={({ isDrag, target, clientX, clientY, datas }) => {
-              // pinchEnd event occur before dragEnd, rotateEnd, scaleEnd, resizeEnd
-              console.log('onPinchEnd')
-          }}
-      />
+    <div id={'shape-canvas'}>
+      {rectangles.map((rec, i) => (
+        <Rectangle
+          initialPosition={rec.position}
+          style={rec.style}
+          onClick={() => setTouchedRectIndex(i)}
+          key={i}
+        />
+      ))}
     </div>
+  )
+}
+
+const DEFAULT_START_POSITION = {
+  left: "40%",
+  top: "40%",
+  width: "200px",
+  height: "200px",
+  rotation: "0deg"
+}
+
+const Rectangle = ({ initialPosition, style={}, onClick }) => {
+  const [position, setPosition] = useState(initialPosition || DEFAULT_START_POSITION)
+  return (
+    <PositionableContainer
+      className="container"
+      movable
+      resizable
+      rotatable
+      position={position}
+      onUpdate={(pos) => {
+        setPosition(pos)
+      }}
+    >
+      <div className={'innerSquare'} style={style} onClick={onClick}>
+        <span>re-position</span>
+      </div>
+    </PositionableContainer>
   )
 }
 
