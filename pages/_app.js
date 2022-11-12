@@ -1,6 +1,6 @@
 import { ColorProvider } from '../contexts/color-context'
 import { RectanglesProvider } from '../contexts/rectangles-context'
-import '../styles/globals.css'
+import '../styles/globals.scss'
 
 function MyApp({ Component, pageProps }) {
   return (

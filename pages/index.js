@@ -5,7 +5,7 @@ const ShapeCanvas = dynamic(
   { ssr: false }
 )
 import Nav from '../components/nav'
-import styles from '../styles/home.module.css'
+import styles from '../styles/home.module.scss'
 
 export default function Home() {
   return (

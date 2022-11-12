@@ -4,7 +4,7 @@ const ColorContext = createContext()
 
 function ColorProvider({ children }) {
   const [color, setColor] = useState('#ffffff')
-  const [touchedRectIndex, setTouchedRectIndex] = useState(null)
+  const [touchedRectIndex, setTouchedRectIndex] = useState(0)
 
   return (
     <ColorContext.Provider
