@@ -47,12 +47,12 @@ const VersionSelector = () => {
     <div className={styles.container}>
       <select
         onChange={e => {
-          console.log('> version', e.target.value)
           setVersion(e.target.value)
         }}
-        value={version ?? undefined}
+        value={version ?? 'Versions'}
         className={styles.versionSelector}
       >
+        <option disabled>{'Versions'}</option>
         {versions.map((version, i) => (
           <option key={i} value={version.title}>
             {version.title}

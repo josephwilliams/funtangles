@@ -22,6 +22,8 @@ const SaveModal = ({ isOpen, onRequestClose, versions, setVersions }) => {
     setVersions(newVersions)
     // update user
     refetchUser()
+    // remove input text
+    setInputText('')
     // close modal
     onRequestClose()
   }
