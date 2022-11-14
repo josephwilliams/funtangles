@@ -3,7 +3,7 @@ import { useState, createContext } from 'react'
 const ColorContext = createContext()
 
 function ColorProvider({ children }) {
-  const [color, setColor] = useState('#ffffff')
+  const [color, setColor] = useState('#cdeeff')
   const [touchedRectIndex, setTouchedRectIndex] = useState(0)
 
   return (

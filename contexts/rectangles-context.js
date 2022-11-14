@@ -1,5 +1,5 @@
 import { useState, createContext, useEffect } from 'react'
-import { useColor } from '../utils/hooks'
+import { useColor, useAuth } from '../utils/hooks'
 
 const RectanglesContext = createContext()
 
@@ -15,7 +15,8 @@ const DEFAULT_INITIAL_STATE = [
   {
     position: DEFAULT_START_POSITION,
     style: {
-      background: '#ffffff'
+      // NOTE: not visible if started with white/transparent background and unfocused
+      background: '#cdeeff'
     },
   }
 ]
@@ -63,6 +64,7 @@ function RectanglesProvider({ children }) {
         addRectangle,
         deleteRectangle,
         clearRectangles,
+        setRectangles,
       }}
     >
       {children}

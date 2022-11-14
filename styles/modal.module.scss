@@ -1,0 +1,26 @@
+.topRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 24px;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.exitButton {
+  cursor: pointer;
+}
+
+.modalTitle {
+  position: relative;
+  bottom: 2px;
+}
+
+.modalSubtext {
+  font-size: 12px;
+  margin-bottom: 6px;
+  color: #5e5e5e;
+}
+
+.topTitle {
+}

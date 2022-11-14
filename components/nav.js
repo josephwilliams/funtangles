@@ -15,6 +15,7 @@ const Nav = () => {
         <ColorSelector />
         <AddRectangleButton addRectangle={addRectangle} />
         <ClearRectanglesButton clearRectangles={clearRectangles} />
+        <div className={styles.title}>{'funtangles'}</div>
       </div>
       <div className={styles.navItemsContainer}>
         <VersionSelector />

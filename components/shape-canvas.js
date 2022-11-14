@@ -6,10 +6,17 @@ import styles from '../styles/shape-canvas.module.scss'
 
 const ShapeCanvas = () => {
   const { setTouchedRectIndex, touchedRectIndex } = useColor()
-  const { rectangles, deleteRectangle } = useRectangles()
+  const { rectangles, deleteRectangle, setRectangles } = useRectangles()
+  console.log('> rectangles', rectangles)
+  const updatePositions = (index, pos) => {
+    let rects = [ ...rectangles ]
+    rects[index].position = pos
+    setRectangles(rects)
+  }
+
   return (
     <div id={'shape-canvas'}>
-      {rectangles.map((rec, i) => (
+      {(rectangles || []).map((rec, i) => (
         <Rectangle
           initialPosition={rec.position}
           style={rec.style}
@@ -17,6 +24,7 @@ const ShapeCanvas = () => {
           onClickDelete={() => deleteRectangle(i)}
           isActive={touchedRectIndex === i}
           deleteRectangle={deleteRectangle}
+          updatePositions={updatePositions}
           index={i}
           key={i}
         />
@@ -25,7 +33,8 @@ const ShapeCanvas = () => {
   )
 }
 
-const Rectangle = ({ initialPosition, style={}, onClick, isActive, onClickDelete }) => {
+const Rectangle = ({ initialPosition, style={}, onClick, isActive, onClickDelete, index, updatePositions }) => {
+  console.log('> initialPosition', initialPosition)
   const [position, setPosition] = useState(initialPosition)
   return (
     <PositionableContainer
@@ -36,6 +45,7 @@ const Rectangle = ({ initialPosition, style={}, onClick, isActive, onClickDelete
       position={position}
       onUpdate={(pos) => {
         setPosition(pos)
+        updatePositions(index, pos)
         onClick()
       }}
     >
