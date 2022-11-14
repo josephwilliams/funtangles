@@ -9,6 +9,7 @@ const ShapeCanvas = () => {
   const { rectangles, deleteRectangle, setRectangles } = useRectangles()
   console.log('> rectangles', rectangles)
   const updatePositions = (index, pos) => {
+    console.log('> updatePositions', index, pos)
     let rects = [ ...rectangles ]
     rects[index].position = pos
     setRectangles(rects)

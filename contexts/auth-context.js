@@ -18,17 +18,18 @@ function AuthProvider({ children }) {
   const [username, setUsername] = useState(null)
   const [user, setUser] = useState(null)
 
+  const fetchUser = async () => {
+    const fetchedUser = await getOrSetUser(username)
+    setUser(fetchedUser)
+  }
+
   useEffect(() => {
     const setUserDetails = async () => {
-      const fetchedUser = await getOrSetUser(username)
-      console.log('> fetchedUser', fetchedUser)
-      setUser(fetchedUser)
+      await fetchUser()
     }
 
     setUserDetails()
   }, [username])
-
-  console.log('> user', user)
 
   return (
     <AuthContext.Provider
@@ -36,6 +37,7 @@ function AuthProvider({ children }) {
         username,
         setUsername,
         user,
+        refetchUser: fetchUser
       }}
     >
       {children}

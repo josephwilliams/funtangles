@@ -7,7 +7,7 @@ import { createUserVersion } from '../lib/api'
 import styles from '../styles/auth-modal.module.scss'
 
 const SaveModal = ({ isOpen, onRequestClose, versions, setVersions }) => {
-  const { username } = useAuth()
+  const { username, refetchUser } = useAuth()
   const { rectangles } = useRectangles()
   const [inputText, setInputText] = useState('')
   const onClickSave = async () => {
@@ -20,13 +20,15 @@ const SaveModal = ({ isOpen, onRequestClose, versions, setVersions }) => {
       ...rectangles
     })
     setVersions(newVersions)
+    // update user
+    refetchUser()
     // close modal
     onRequestClose()
   }
   return (
     <Modal
       title={'Save Design'}
-      subtext={'Create a title by which your design will be saved.'}
+      subtext={'Create a title for your design.'}
       isOpen={isOpen}
       onRequestClose={onRequestClose}
     >

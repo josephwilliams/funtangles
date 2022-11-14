@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react'
-import ReactSelect from 'react-select'
 import SaveButton from './save-button'
 import { getUserByUsername } from '../lib/api'
 import { useAuth, useRectangles } from '../utils/hooks'
 import styles from '../styles/version-selector.module.scss'
 
 const VersionSelector = () => {
-  const { username, user } = useAuth()
+  const { username, user, refetchUser } = useAuth()
   const { setRectangles } = useRectangles()
   const [versions, setVersions] = useState([])
   const [version, setVersion] = useState(null)
@@ -27,7 +26,10 @@ const VersionSelector = () => {
       const firstRectanglesTitle = newVersions[0]?.title
       if (firstRectanglesTitle) {
         const firstRectangles = (user?.versions || {})[firstRectanglesTitle]
-        setRectangles(firstRectangles)
+        if (firstRectangles) setRectangles([ ...firstRectangles ])
+      } else {
+        setVersion(null)
+        setRectangles([])
       }
     }
 
@@ -35,31 +37,28 @@ const VersionSelector = () => {
   }, [username])
 
   useEffect(() => {
+    // NOTE: refetch user to use newly saved version
+    refetchUser()
     const newRectangles = (user?.versions || {})[version]
-    if (newRectangles) setRectangles(newRectangles)
+    if (newRectangles) setRectangles([ ...newRectangles ])
   }, [version])
 
   return (
     <div className={styles.container}>
-      <ReactSelect
-        options={versions.map(version => ({
-          label: version.title,
-          value: version.title,
-        }))}
-        onChange={value => {
-          setVersion(value.label)
+      <select
+        onChange={e => {
+          console.log('> version', e.target.value)
+          setVersion(e.target.value)
         }}
-        styles={{
-          container: state => ({
-            ...state,
-            padding: 8,
-          }),
-          option: provided => ({
-            ...provided,
-            padding: 8,
-          }),
-        }}
-      />
+        value={version ?? undefined}
+        className={styles.versionSelector}
+      >
+        {versions.map((version, i) => (
+          <option key={i} value={version.title}>
+            {version.title}
+          </option>
+        ))}
+      </select>
       <SaveButton
         versions={versions}
         setVersions={setVersions}
