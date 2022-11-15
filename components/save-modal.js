@@ -6,22 +6,25 @@ import { useAuth } from '../utils/hooks'
 import { createUserVersion } from '../lib/api'
 import styles from '../styles/auth-modal.module.scss'
 
-const SaveModal = ({ isOpen, onRequestClose, versions, setVersions }) => {
+const SaveModal = ({ isOpen, onRequestClose, versions, setVersions, setVersion }) => {
   const { username, refetchUser } = useAuth()
   const { rectangles } = useRectangles()
   const [inputText, setInputText] = useState('')
   const onClickSave = async () => {
+    const newVersionTitle = inputText
     // create new version in db
-    createUserVersion(username, { title: inputText, rectangles })
+    createUserVersion(username, { title: newVersionTitle, rectangles })
     // update list of versions in dropdown
     const newVersions = [ ...versions ]
     newVersions.push({
-      title: inputText,
+      title: newVersionTitle,
       ...rectangles
     })
     setVersions(newVersions)
     // update user
     refetchUser()
+    // set version
+    setVersion(newVersionTitle)
     // remove input text
     setInputText('')
     // close modal

@@ -7,9 +7,8 @@ import styles from '../styles/shape-canvas.module.scss'
 const ShapeCanvas = () => {
   const { setTouchedRectIndex, touchedRectIndex } = useColor()
   const { rectangles, deleteRectangle, setRectangles } = useRectangles()
-  console.log('> rectangles', rectangles)
+
   const updatePositions = (index, pos) => {
-    console.log('> updatePositions', index, pos)
     let rects = [ ...rectangles ]
     rects[index].position = pos
     setRectangles(rects)
@@ -35,8 +34,10 @@ const ShapeCanvas = () => {
 }
 
 const Rectangle = ({ initialPosition, style={}, onClick, isActive, onClickDelete, index, updatePositions }) => {
-  console.log('> initialPosition', initialPosition)
   const [position, setPosition] = useState(initialPosition)
+  useEffect(() => {
+    setPosition(initialPosition)
+  }, [initialPosition])
   return (
     <PositionableContainer
       className={styles.rectangle}

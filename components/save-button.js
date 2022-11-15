@@ -3,7 +3,7 @@ import Button from './button'
 import SaveModal from './save-modal'
 import styles from '../styles/auth-modal.module.scss'
 
-const SaveButton = ({ className, versions, setVersions }) => {
+const SaveButton = ({ className, versions, setVersions, setVersion }) => {
   const [isModalOpen, setModalOpen] = useState(false)
   return (
     <div className={className}>
@@ -12,6 +12,7 @@ const SaveButton = ({ className, versions, setVersions }) => {
         onRequestClose={() => setModalOpen(false)}
         versions={versions}
         setVersions={setVersions}
+        setVersion={setVersion}
       />
       <Button
         title={'Save'}

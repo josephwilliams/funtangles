@@ -62,6 +62,7 @@ const VersionSelector = () => {
       <SaveButton
         versions={versions}
         setVersions={setVersions}
+        setVersion={setVersion}
         className={styles.saveButton}
       />
     </div>
